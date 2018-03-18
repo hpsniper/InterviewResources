@@ -1,4 +1,4 @@
-package amazon.takehome.practice;
+package amazon.practice;
 
 class Point {
     int x;

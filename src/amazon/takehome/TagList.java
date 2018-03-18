@@ -1,4 +1,4 @@
-package Amazon;
+package amazon.takehome;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package amazon.takehome.practice;
+package amazon.practice;
 
 import java.util.Arrays;
 import java.util.HashMap;
