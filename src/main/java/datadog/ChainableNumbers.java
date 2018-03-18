@@ -3,13 +3,8 @@ package datadog;
 import java.util.*;
 
 public class ChainableNumbers {
-    int outerQueueIterations = 0;
-    int innerLoopIterations = 0;
-    long duration = 0;
 
     public boolean isChainable(int[] numbers, int start, int end) {
-        long startTime = System.currentTimeMillis();
-
         if(start == end) {
             return true;
         }
@@ -46,11 +41,7 @@ public class ChainableNumbers {
             return false;
         }
 
-        boolean result = findChain(nodes, start, end);
-        long endTime = System.currentTimeMillis();
-
-        duration = (endTime - startTime);
-        return result;
+        return findChain(nodes, start, end);
     }
 
     private boolean findChain(HashMap<Integer, HashMap<Integer, Integer>> nodes, int start, int end) {
@@ -60,7 +51,6 @@ public class ChainableNumbers {
         queue.add(start);
         keySet.add(getKey(start));
         while(!queue.isEmpty()) {
-            outerQueueIterations++;
             int current = queue.poll();
             if (current == end) {
                 return true;
@@ -91,7 +81,6 @@ public class ChainableNumbers {
             }
 
             for(Map.Entry<Integer, Integer> entry : keyMap.entrySet()) {
-                innerLoopIterations++;
                 int newKey = entry.getKey();
                 if(keySet.contains(newKey)) {
                     continue;
@@ -117,81 +106,4 @@ public class ChainableNumbers {
         return number / 100;
     }
 
-    private static void printTest(int[] numbers, int start, int end, boolean expected) {
-        ChainableNumbers cn = new ChainableNumbers();
-        boolean actual = cn.isChainable(numbers, start, end);
-
-        if(expected != actual) {
-            System.out.println(String.format("ERROR: Expected: %b Actual: %b", expected, actual));
-        }
-
-        System.out.println(String.format("outerQueues = %d, innerLoops = %d, Seconds: %02d.%d",
-                cn.outerQueueIterations,
-                cn.innerLoopIterations,
-                (cn.duration / 1000) % 60,
-                cn.duration % 1000
-        ));
-    }
-
-    public static void main(String[] args) {
-        // example 1: 8183 => 8363 => 6388
-        printTest(new int[]{8363, 6388, 8183, 5364, 8353, 8365, 9380}, 8183, 6388, true);
-
-        // example 2: 8183 => 8363 => 6388 => 8899 => 9953 => 5364
-        printTest(new int[]{8363, 6388, 8183, 5364, 8365, 9380, 8899, 9953}, 8183, 5364, true);
-
-        // example 3: 1234 => 3456 => 5678
-        printTest(new int[]{1234, 3400, 3456, 5678}, 1234, 5678, true);
-
-        // example 4: 9911 => 1122 => 2233 => 3344 => 4455 => 5566 => 6677 => 7788 => 8899
-        printTest(new int[]{1122, 2233, 3344, 4455, 5566, 6677, 7788, 8899, 9911}, 9911, 8899, true);
-
-        // example 5: 8899 => 9911
-        printTest(new int[]{1122, 2233, 3344, 4455, 5566, 6677, 8899, 9911}, 8899, 9911, true);
-
-        // example 6:
-        printTest(new int[]{1111, 1122, 1133, 2211, 2222, 2233, 3311, 3322, 3333, 4411}, 1111, 4411, false);
-
-        // example 7:
-        printTest(new int[]{1111, 1122, 1133, 2211, 2222, 2233, 3311, 3322, 3333, 3344, 4411}, 1111, 4411, true);
-
-        int[] lotsInts = new int[]{
-                1110, 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119,
-                1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219,
-                1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319,
-                1410, 1411, 1412, 1413, 1414, 1415, 1416, 1417, 1418, 1419,
-                9999
-        };
-        // example 6:
-        printTest(lotsInts, 1110, 9999, false);
-
-        // example 7:
-        printTest(lotsInts, 1111, 9999, false);
-
-        int[] no99Key = new int[8911];
-        int arrayIndex = 0;
-        int number = 1000;
-        while(number < 10000) {
-            if( (number % 100) == 99) {
-                number++;
-            } else {
-                no99Key[arrayIndex] = number;
-
-                number++;
-                arrayIndex++;
-            }
-        }
-
-        no99Key[no99Key.length - 1] = 9999;
-        printTest(no99Key, 1111, 9999, false);
-
-
-        int[] allNums = new int[9000];
-        for(int i=0;i<9000;i++) {
-            allNums[i] = i+1000;
-        }
-
-        printTest(allNums, 1234, 5678, true);
-
-    }
 }
