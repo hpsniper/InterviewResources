@@ -53,4 +53,88 @@ public class ShortOnes {
         System.out.println("tail StackFrames = " + Thread.currentThread().getStackTrace().length);
     }
 
+    public void printNfactorialsToZero(int n) {
+        long result = factorial(n);
+        System.out.println(result);
+        while(n > 1) {
+            result = result / n;
+            System.out.println(result);
+            n--;
+        }
+    }
+
+    private long factorial(int n) {
+        if (n == 0) {
+            return 0L;
+        }
+
+        long result = 1L;
+        while(n > 0) {
+            result = result * n;
+            n--;
+        }
+
+        return result;
+    }
+
+    public String runLengthEncoding(String s) {
+        if(s.isEmpty()) {
+            return s;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        char previous = s.charAt(0);
+        int count = 1;
+        for(int i=1;i<s.length();i++) {
+            char c = s.charAt(i);
+            if(c == previous) {
+                count++;
+            } else {
+                sb.append(previous);
+                sb.append(count);
+                count = 1;
+            }
+
+            previous = c;
+        }
+
+        sb.append(previous);
+        sb.append(count);
+
+        return sb.toString();
+    }
+
+    public String runLengthDecoding(String s) {
+       if(s.isEmpty()) {
+           return s;
+       }
+
+       StringBuilder sb = new StringBuilder();
+       // assumes a properly encoded string
+       char previousNonInteger = s.charAt(0);
+       StringBuilder intBuilder = new StringBuilder();
+       for(int i=1;i<s.length();i++) {
+           char c = s.charAt(i);
+           if(Character.isDigit(c)) {
+               intBuilder.append(c);
+           } else {
+               int timesToPrint = Integer.parseInt(intBuilder.toString());
+               while(timesToPrint > 0) {
+                   sb.append(previousNonInteger);
+                   timesToPrint--;
+               }
+               intBuilder = new StringBuilder();
+               previousNonInteger = c;
+           }
+       }
+
+       int timesToPrint = Integer.parseInt(intBuilder.toString());
+       while(timesToPrint > 0) {
+           sb.append(previousNonInteger);
+           timesToPrint--;
+       }
+
+       return sb.toString();
+    }
+
 }

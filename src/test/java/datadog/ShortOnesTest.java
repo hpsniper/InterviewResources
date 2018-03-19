@@ -40,4 +40,46 @@ public class ShortOnesTest {
         assertEquals(6765L, so.headRecursiveFib(20));
         assertEquals(6765L, so.tailRecursiveFib(20));
     }
+
+    @Test
+    public void testPrintFactorials() {
+        ShortOnes so = new ShortOnes();
+        so.printNfactorialsToZero(6);
+    }
+
+    @Test
+    public void testRunLengthEncoding() {
+        ShortOnes so = new ShortOnes();
+        assertEquals("H1e1l2o1 1W1o1r1l1d1!1", so.runLengthEncoding("Hello World!"));
+    }
+
+    @Test
+    public void testRunLengthEncodingEnding() {
+        ShortOnes so = new ShortOnes();
+        assertEquals("H1e1l2o1 1W1o1r1l1d1!4", so.runLengthEncoding("Hello World!!!!"));
+    }
+
+    @Test
+    public void testRunLengthEncodingUseful() {
+        ShortOnes so = new ShortOnes();
+        assertEquals("H1h2H1e1l15o5 1W3o1r1l4d1!7", so.runLengthEncoding("HhhHelllllllllllllllooooo WWWorlllld!!!!!!!"));
+    }
+
+    @Test
+    public void testRunLengthDecoding() {
+        ShortOnes so = new ShortOnes();
+        assertEquals("Hello World!", so.runLengthDecoding("H1e1l2o1 1W1o1r1l1d1!1"));
+    }
+
+    @Test
+    public void testRunLengthDecodingEnding() {
+        ShortOnes so = new ShortOnes();
+        assertEquals("Hello World!!!!", so.runLengthDecoding("H1e1l2o1 1W1o1r1l1d1!4"));
+    }
+
+    @Test
+    public void testRunLengthDecodingUseful() {
+        ShortOnes so = new ShortOnes();
+        assertEquals("HhhHelllllllllllllllooooo WWWorlllld!!!!!!!", so.runLengthDecoding("H1h2H1e1l15o5 1W3o1r1l4d1!7"));
+    }
 }
