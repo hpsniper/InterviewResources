@@ -98,6 +98,5 @@ public class ChainableNumbersTest {
 
         no99Key[no99Key.length - 1] = 9999;
         assertFalse(cn.isChainable(no99Key, 1111, 9999));
-
     }
 }

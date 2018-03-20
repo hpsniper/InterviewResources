@@ -1,5 +1,7 @@
 package datadog;
 
+import com.google.common.collect.Sets;
+
 import java.util.*;
 
 public class ChainableNumbers {
@@ -9,11 +11,13 @@ public class ChainableNumbers {
             return true;
         }
 
-        HashMap<Integer, HashMap<Integer, Integer>> nodes = new HashMap<>(numbers.length);
+        HashMap<Integer, HashMap<Integer, Integer>> graph = new HashMap<>(numbers.length);
         boolean containsStart = false;
         boolean containsEnd = false;
+        boolean containsMagicNumber = false;
 
-        // setup nodes and set if our map contains start and end
+        // setup "graph" and set if our number list contains start and end
+        // Also, check to see if we have the magic number that connects start and end
         for(int i=0;i<numbers.length;i++) {
             int num = numbers[i];
             if(!isFourDigits(num)) {
@@ -24,32 +28,37 @@ public class ChainableNumbers {
                 containsStart = true;
             } else if(num == end) {
                 containsEnd = true;
+                // start = 6388 end = 5422 magicNumber = 8854
+            } else if(getLock(num) == getKey(start) && getLock(end) == getKey(num)) {
+                containsMagicNumber = true;
             }
 
             int lock = getLock(num);
-            if(!nodes.containsKey(lock)) {
-                nodes.put(lock, new HashMap<>());
+            if(!graph.containsKey(lock)) {
+                graph.put(lock, new HashMap<>());
             }
 
             int key = getKey(num);
-            HashMap<Integer, Integer> map = nodes.get(lock);
+            HashMap<Integer, Integer> map = graph.get(lock);
             map.put(key, num);
-            nodes.put(lock, map);
+            graph.put(lock, map);
         }
 
         if(!containsStart || !containsEnd) {
             return false;
+        } else if (containsMagicNumber) {
+            return true;
         }
 
-        return findChain(nodes, start, end);
+        return findChain(graph, start, end);
     }
 
-    private boolean findChain(HashMap<Integer, HashMap<Integer, Integer>> nodes, int start, int end) {
+    private boolean findChain(HashMap<Integer, HashMap<Integer, Integer>> graph, int start, int end) {
         LinkedList<Integer> queue = new LinkedList<>();
-        HashSet<Integer> keySet = new HashSet<>(100);
+        HashSet<Integer> keyInventory = new HashSet<>(100);
 
         queue.add(start);
-        keySet.add(getKey(start));
+        keyInventory.add(getKey(start));
         while(!queue.isEmpty()) {
             int current = queue.poll();
             if (current == end) {
@@ -57,37 +66,33 @@ public class ChainableNumbers {
             }
 
             int currentKey = getKey(current);
-            if(!nodes.containsKey(currentKey)) {
+            if(!graph.containsKey(currentKey)) {
                 continue;
             }
 
-            HashMap<Integer, Integer> keyMap = nodes.get(currentKey);
+            HashMap<Integer, Integer> keyMap = graph.get(currentKey);
             // Our currentKey can get us to our end
             if(currentKey == getLock(end)) {
                 // We have found our end, put it at the front of our queue
                 if(keyMap.containsKey(getKey(end))) {
                     queue.push(keyMap.get(getKey(end)));
-                    keySet.add(getKey(end));
+                    keyInventory.add(getKey(end));
                     continue;
                 } else {
                     // Should never get here, otherwise it would mean our end isn't in our map which we've checked for
                     return false;
                 }
-            // we have a key to a node that holds a key to our end, put that at the front of our queue
+            // we have a key to a number that holds a key to our end, put that at the front of our queue
             } else if(keyMap.containsKey(getLock(end))) {
                 queue.push(keyMap.get(getLock(end)));
-                keySet.add(getLock(end));
+                keyInventory.add(getLock(end));
                 continue;
             }
 
-            for(Map.Entry<Integer, Integer> entry : keyMap.entrySet()) {
-                int newKey = entry.getKey();
-                if(keySet.contains(newKey)) {
-                    continue;
-                }
-
-                keySet.add(newKey);
-                queue.add(entry.getValue());
+            // we only need to queue graph that give us new keys in our inventory
+            for(Integer newKey : Sets.difference(keyMap.keySet(), keyInventory)) {
+                keyInventory.add(newKey);
+                queue.add(keyMap.get(newKey));
             }
         }
 
