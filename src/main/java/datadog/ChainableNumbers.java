@@ -92,6 +92,8 @@ public class ChainableNumbers {
             }
 
             // we only need to queue numbers that give us new keys in our inventory
+            // The Sets.SetView will update as we add things to keyInventory
+            // this just uses a while loop under the hood, so its still is an O(N) search
             for(Integer newKey : Sets.difference(keyMap.keySet(), keyInventory)) {
                 keyInventory.add(newKey);
                 queue.add(keyMap.get(newKey));
