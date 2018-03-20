@@ -15,6 +15,8 @@ public class ChainableNumbers {
         boolean containsStart = false;
         boolean containsEnd = false;
         boolean containsMagicNumber = false;
+        // if start = 1155 and end = 2266 our magicNumber = 5522
+        int magicNumber = getKey(start) * 100 + getLock(end);
 
         // setup "graph" and set if our number list contains start and end
         // Also, check to see if we have the magic number that connects start and end
@@ -24,12 +26,12 @@ public class ChainableNumbers {
                 continue;
             }
 
+            // can terminate early and return true if all 3 of these are true
             if (num == start) {
                 containsStart = true;
             } else if(num == end) {
                 containsEnd = true;
-                // start = 6388 end = 5422 magicNumber = 8854
-            } else if(getLock(num) == getKey(start) && getLock(end) == getKey(num)) {
+            } else if(num == magicNumber) {
                 containsMagicNumber = true;
             }
 
@@ -89,7 +91,7 @@ public class ChainableNumbers {
                 continue;
             }
 
-            // we only need to queue graph that give us new keys in our inventory
+            // we only need to queue numbers that give us new keys in our inventory
             for(Integer newKey : Sets.difference(keyMap.keySet(), keyInventory)) {
                 keyInventory.add(newKey);
                 queue.add(keyMap.get(newKey));
