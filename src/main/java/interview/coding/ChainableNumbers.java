@@ -1,8 +1,16 @@
-package datadog;
+package interview.coding;
 
 import com.google.common.collect.Sets;
 
 import java.util.*;
+
+/*
+    Given an array of four digit numbers [8363, 6388, 8183, 5364, 8353, 8365, 9380]
+    and two four digit numbers start 8183 and end 6388
+    indicate if A and B are chainable.
+    True (8183 => 8363 => 6388)
+    * Any numbers X and Y are chainable if the last two digits of X are the first two digits of Y, with any number of chainable numbers in between.
+ */
 
 public class ChainableNumbers {
 

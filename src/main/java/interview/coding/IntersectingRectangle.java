@@ -1,4 +1,4 @@
-package amazon.practice;
+package interview.coding;
 
 class Point {
     int x;
@@ -9,7 +9,9 @@ class Point {
         this.y = y;
     }
 }
-
+/*
+    Return the area inside the intersection of 2 rectangles given as 2 pairs of 2 points.
+ */
 class Rectangle {
     Point bottomLeft;
     Point topRight;
@@ -34,7 +36,7 @@ class Rectangle {
 
 public class IntersectingRectangle {
 
-    public int findIntersectingRectangle(Rectangle r1, Rectangle r2) {
+    public int findIntersectingRectangleArea(Rectangle r1, Rectangle r2) {
         Rectangle intersection = new Rectangle(findInnerBottomLeft(r1, r2), findInnerTopRight(r1, r2));
         return intersection.getArea();
     }
@@ -65,7 +67,7 @@ public class IntersectingRectangle {
         Point p4 = new Point(xB2, yB2);
         Rectangle r2 = new Rectangle(p3, p4);
 
-        int actual = ir.findIntersectingRectangle(r1, r2);
+        int actual = ir.findIntersectingRectangleArea(r1, r2);
         System.out.println(String.format("Expected: %d Actual: %d - %b", expected, actual, expected == actual));
     }
 

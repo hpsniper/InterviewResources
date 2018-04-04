@@ -1,8 +1,17 @@
-package amazon.takehome;
+package takehome;
 
 import java.util.*;
 
 public class TagList {
+
+  /*
+   given a list of tags as our target ['hello', 'goodbye']
+   and a list of available tags ['hello', 'at', 'once', 'goodbye', 'cat', 'hello']
+   return the smallest sequential list of tags from our available tags that cover our target as a start and end index
+   return [3,5]
+   Not [0,3] as  3   >   2
+               (3-0) > (5-3)
+  */
 
   public static List<Integer> findTagListBF(List<String> targetTags, List<String> availableTags) {
     List<Integer> tagRange = new ArrayList<>();
@@ -63,7 +72,7 @@ public class TagList {
       System.out.println("\texpected="+expectedResult);
       System.out.println("\tactual="+actualResult);
     } else {
-      System.out.println("findTags(\""+targetTags.toString()+"\", ...) success.");
+      System.out.println("findTags(\""+targetTags.toString()+"\", "+availableTags.toString()+") => "+actualResult.toString()+" success.");
     }
   }
 

@@ -1,8 +1,10 @@
-package amazon.practice;
+package interview.coding;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
+
+/* Find longest sequential sub-sequence of an array that sums to 0 */
 
 class Answer {
     int originalStartIndex;
@@ -20,7 +22,6 @@ class Answer {
 }
 
 public class LongestSubsequence {
-    /* Find longest sequential sub-sequence of an array that sums to 0 */
 
     public Optional<Answer> bruteForce(int[] array) {
         Optional<Answer> currentMaxAnswer = Optional.empty();
@@ -109,27 +110,5 @@ public class LongestSubsequence {
         longestSubsequence.testAnswer(new int[]{5,6,9,12,-7,-14,33});
     }
 
-
-    public int largestSubsequence(int[] array) {
-        // store <sumUpToI, i> key value pairs to determine if we have a 0 sum sequence
-        HashMap<Integer, Integer> iValueWithSum = new HashMap<>(array.length);
-        // our sum is 0 before we start, this is to catch sequences that start at i=0
-        iValueWithSum.put(0, -1);
-        int currentMaxSequenceLength = 0;
-
-        int currentSum = 0;
-        for(int i=0;i<array.length;i++) {
-            currentSum += array[i];
-            if(iValueWithSum.containsKey(currentSum)) {
-                int startIndexForZeroSum = iValueWithSum.get(currentSum) + 1;
-                int currentSequenceLength = (i - startIndexForZeroSum) + 1;
-                currentMaxSequenceLength = Math.max(currentMaxSequenceLength, currentSequenceLength);
-            } else {
-                iValueWithSum.put(currentSum, i);
-            }
-        }
-
-        return currentMaxSequenceLength;
-    }
 
 }

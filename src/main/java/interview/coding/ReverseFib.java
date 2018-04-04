@@ -1,7 +1,10 @@
-package datadog;
+package interview.coding;
 
 public class ReverseFib {
-
+    /*
+        Given a number n, print the nth factor of the fibonnaci sequence.
+        Below are a number of ways of solving this problem. I prefer the first implementation.
+     */
     public long reverseFib(int n) {
         if (n == 0) {
             return 0;
