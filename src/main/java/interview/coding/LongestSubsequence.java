@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 
-/* Find longest sequential sub-sequence of an array that sums to 0 */
+/*
+    Find longest sequential sub-sequence of an array of ints that sum to 0
+*/
 
 class Answer {
     int originalStartIndex;

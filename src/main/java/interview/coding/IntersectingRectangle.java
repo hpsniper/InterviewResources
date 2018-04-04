@@ -1,5 +1,9 @@
 package interview.coding;
 
+/*
+    Return the area inside the intersection of 2 rectangles given as 2 pairs of 2 points.
+*/
+
 class Point {
     int x;
     int y;
@@ -9,9 +13,7 @@ class Point {
         this.y = y;
     }
 }
-/*
-    Return the area inside the intersection of 2 rectangles given as 2 pairs of 2 points.
- */
+
 class Rectangle {
     Point bottomLeft;
     Point topRight;

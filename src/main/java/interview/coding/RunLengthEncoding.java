@@ -1,10 +1,11 @@
 package interview.coding;
 
 /*
-Given a string, provide run-length encoding and decoding
-'heeeeeeeeeyyy guysssssss!!!!' => 'h1e9y3 1g1u1y1s7!4'
-future improvement could be added to whenever the encoding is 1, just use the letter so 'he9y3 guys7!4'
- */
+    Given a string, provide run-length encoding and decoding
+    'heeeeeeeeeyyy guysssssss!!!!' => 'h1e9y3 1g1u1y1s7!4'
+    future improvement could be added to whenever the encoding is 1, just use the letter so 'he9y3 guys7!4'
+*/
+
 public class RunLengthEncoding {
 
     public String runLengthEncoding(String s) {

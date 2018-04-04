@@ -1,10 +1,12 @@
 package interview.coding;
 
 import java.util.Stack;
+
 /*
     Given a number n, print (n)!\n(n-1)!\n...(1)!
     Below are 2 implemenetations, one using division and one using a stack to avoid duplicate computation
- */
+*/
+
 public class PrintFactorial {
 
     public void printNfactorialsToZero(int n) {

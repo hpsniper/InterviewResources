@@ -2,11 +2,11 @@ package takehome;
 
 import java.util.*;
 
-public class RepeatCharacter {
-
-  /*
+/*
    Given a string s and an integer k, find all substrings of s of size k that have exactly 1 duplicate character
-   */
+*/
+
+public class RepeatCharacter {
 
   public static List<String> singleDuplicateCharacterSubstring(String inputString, int k) {
     List<String> result = new ArrayList<>();

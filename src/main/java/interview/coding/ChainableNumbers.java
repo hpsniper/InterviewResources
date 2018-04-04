@@ -10,7 +10,7 @@ import java.util.*;
     indicate if A and B are chainable.
     True (8183 => 8363 => 6388)
     * Any numbers X and Y are chainable if the last two digits of X are the first two digits of Y, with any number of chainable numbers in between.
- */
+*/
 
 public class ChainableNumbers {
 
